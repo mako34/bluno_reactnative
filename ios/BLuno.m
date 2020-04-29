@@ -12,38 +12,26 @@
 
 
 - (NSArray<NSString *> *)supportedEvents {
-    return @[@"onSessionConnect",@"onDeviceConnected"];
+    return @[@"onSessionStatus", @"onSessionConnect",@"onDeviceConnected"];
 }
 
-// To export a module named CalendarManager
 RCT_EXPORT_MODULE();
 
+#pragma mark- METHODS TO EXPOSE to JS
 //Espose methods to JS
 
 //Init
 RCT_EXPORT_METHOD(initEvent:(NSString *)params)
 {
   RCTLogInfo(@"blunoManager inited:%@", params);
-  //call a timed function
-  
-  
+  //init Bluno
   self.blunoManager = [DFBlunoManager sharedInstance];
   self.blunoManager.delegate = self;
   self.aryDevices = [[NSMutableArray alloc] init];
 
-//  [BLuno performSelector:@selector(onTick) withObject:nil afterDelay:3.0];
-  
-  
-//  [self sendEventWithName:@"onSessionConnect" body:@{@"sessionId": @"abc"}];
-
-
 }
 
-RCT_EXPORT_METHOD(addEvent:(NSString *)name location:(NSString *)location)
-{
-  RCTLogInfo(@"Pretending to create an event %@ at %@", name, location);
-}
-
+//connect to device, should be from table pop up!
 RCT_EXPORT_METHOD(searchDeviceEvent:(NSString *)params)
 {
   RCTLogInfo(@"searchDeviceEvent:%@", params);
@@ -84,22 +72,51 @@ RCT_EXPORT_METHOD(connectDeviceEvent:(NSString *)params)
          
          [self.blunoManager connectToDevice:device];
      }
-     [self sendEventWithName:@"onDeviceConnected" body:[NSString stringWithFormat:@"%@", self.aryDevices]];
+//     [self sendEventWithName:@"onDeviceConnected" body:[NSString stringWithFormat:@"%@", self.aryDevices]];
+  
+      [self sendEventWithName:@"onSessionStatus" body:@"CONNECTED"];
 
 }
 
-////a callback
-//RCT_EXPORT_METHOD(foundDeviceEvent:(RCTResponseSenderBlock)callback)
-//{
-//  //WHEN SCANNER FOUND DEVICES, WILL SHOW HERE
-//  NSLog(@"foundDeviceEvent");
-//
-//
-//  //how to hold till complete? or call another function when complete?
-//  callback(@[@"blunoManager scan results"]);
-//}
+RCT_EXPORT_METHOD(SetFreqEvent:(NSString *)params)
+{
+  RCTLogInfo(@"TurnLEDonEvent:%@", params);
+ if (self.blunoDev.bReadyToWrite)
+      {
+  //        NSString* strTemp = self.txtSendMsg.text;
+          NSString* strTemp = @"33";
+  //        NSString* strTemp = [NSString stringWithFormat:@"freq:%@",  self.txtSendMsg.text];
 
 
+          NSData* data = [strTemp dataUsingEncoding:NSUTF8StringEncoding];
+          [self.blunoManager writeDataToDevice:data Device:self.blunoDev];
+      }
+    
+}
+ 
+RCT_EXPORT_METHOD(TurnLEDonEvent:(NSString *)params)
+{
+  RCTLogInfo(@"TurnLEDonEvent:%@", params);
+  if (self.blunoDev.bReadyToWrite)
+  {
+      NSString* strTemp = @"LED_OFF";
+      NSData* data = [strTemp dataUsingEncoding:NSUTF8StringEncoding];
+      [self.blunoManager writeDataToDevice:data Device:self.blunoDev];
+  }
+    
+}
+
+RCT_EXPORT_METHOD(TurnLEDoffEvent:(NSString *)params)
+{
+  RCTLogInfo(@"TurnLEDoffEvent:%@", params);
+
+    if (self.blunoDev.bReadyToWrite)
+    {
+        NSString* strTemp = @"LED_ON";
+        NSData* data = [strTemp dataUsingEncoding:NSUTF8StringEncoding];
+        [self.blunoManager writeDataToDevice:data Device:self.blunoDev];
+    }
+}
 
 
 #pragma mark- DFBlunoDelegate
@@ -140,12 +157,17 @@ RCT_EXPORT_METHOD(connectDeviceEvent:(NSString *)params)
     NSLog(@"readyToCommunicate");
 
     self.blunoDev = dev;
+  
+  [self sendEventWithName:@"onSessionStatus" body:@"readyToCommunicate"];
+
 //    self.lbReady.text = @"Ready!";
 //  HERE CALLBACK ready
 }
 -(void)didDisconnectDevice:(DFBlunoDevice*)dev
 {
     NSLog(@"didDisconnectDevice");
+  [self sendEventWithName:@"onSessionStatus" body:@"didDisconnectDevice"];
+
 
 //    self.lbReady.text = @"Not Ready!";
 //  HERE CALLBACK ready
@@ -153,15 +175,25 @@ RCT_EXPORT_METHOD(connectDeviceEvent:(NSString *)params)
 -(void)didWriteData:(DFBlunoDevice*)dev
 {
     NSLog(@"didWriteData");
+  [self sendEventWithName:@"onSessionStatus" body:@"didWriteData"];
+
 
 }
 -(void)didReceiveData:(NSData*)data Device:(DFBlunoDevice*)dev
 {
     NSLog(@"didReceiveData");
+  [self sendEventWithName:@"onSessionStatus" body:@"didReceiveData"];
+
 
 //    self.lbReceivedMsg.text = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
 //  HERE CALLBACK received data
 }
+
+
+
+
+
+
 
 @end
 

@@ -17,7 +17,6 @@ import {
   TouchableOpacity,
   NativeModules,
   NativeEventEmitter,
-  DeviceEventEmitter
 } from 'react-native';
 
 import {
@@ -40,9 +39,19 @@ const onDeviceConnected = (event) => {
   // console.log("Tu device:",event);
 }
 
+const onSessionStatus = (event) => {
+  console.log("********* onSessionStatus");
+
+  console.log("Tu device:",event);
+}
+
+
 const subscription = eventEmitter.addListener('onSessionConnect', onSessionConnect);
 
-eventEmitter.addListener('onDeviceConnected', onSessionConnect);
+eventEmitter.addListener('onDeviceConnected', onDeviceConnected);
+eventEmitter.addListener('onSessionStatus', onSessionStatus);
+
+onSessionStatus
 
 // const bluno = NativeModules.BLuno
 // const blunoEmitter = new NativeEventEmitter(NativeModules.BLuno)
@@ -99,9 +108,7 @@ class App extends React.Component {
           <TouchableOpacity style={styles.subRaw}
         onPress={() => {
           NativeModules.BLuno.connectDeviceEvent('tus params search')
-
-          
-        }}
+          }}
       > 
             <Text>Connect</Text>
           </TouchableOpacity>
@@ -112,15 +119,8 @@ class App extends React.Component {
           />
           <TouchableOpacity style={{padding:30}}
             onPress={() => {
-              // alert('ss9');
+              NativeModules.BLuno.SetFreqEvent('tus params search')
 
-              //call something on ios
-              NativeModules.RNHello.addEvent('cumple de fernando', 'mansion playa')
-
-              //initiate callback on ios
-              // NativeModules.RNHello.findEvents(resp => {
-              //   alert(resp);
-              // })
 
             }}>
             <Text>   Send message </Text>
@@ -130,10 +130,18 @@ class App extends React.Component {
             Received message</Text>
 
           <View style={styles.subRaw}>
-            <TouchableOpacity> 
+            <TouchableOpacity
+            onPress={() => {
+              NativeModules.BLuno.TurnLEDonEvent('tus params search')
+              }}
+            > 
               <Text>Turn LEDS ON</Text>
             </TouchableOpacity>
-            <TouchableOpacity> 
+            <TouchableOpacity
+            onPress={() => {
+              NativeModules.BLuno.TurnLEDoffEvent('tus params search')
+              }}
+            > 
             <Text>Turn LEDS OFF</Text>
           </TouchableOpacity>
           </View> 
