@@ -16,26 +16,95 @@ import {
   StatusBar,
   TouchableOpacity,
   NativeModules,
+  NativeEventEmitter,
+  DeviceEventEmitter
 } from 'react-native';
 
 import {
   Colors,
 } from 'react-native/Libraries/NewAppScreen';
 
-const App: () => React$Node = () => {
-  return (
-    <>
-      <StatusBar barStyle="dark-content" />
+const { BLuno } = NativeModules;
+const eventEmitter = new NativeEventEmitter(BLuno);
+
+
+const onSessionConnect = (event) => {
+  console.log("********* onSessionConnect");
+
+  console.log("Tu device:",event);
+}
+
+const onDeviceConnected = (event) => {
+  console.log("********* onDeviceConnected");
+
+  // console.log("Tu device:",event);
+}
+
+const subscription = eventEmitter.addListener('onSessionConnect', onSessionConnect);
+
+eventEmitter.addListener('onDeviceConnected', onSessionConnect);
+
+// const bluno = NativeModules.BLuno
+// const blunoEmitter = new NativeEventEmitter(NativeModules.BLuno)
+// const subscription = DeviceEventEmitter.addListener('myAwesomeEvent', e => console.log(e));
+
+// const subscription = blunoEmitter.addListener('bluno-progress', (data) => console.log(data.progress))
+
+
+class App extends React.Component {
+
+  //constructor for state, soon
+
+  componentWillUnmount(){
+
+    //unsubscribe
+    subscription.remove()
+
+  }
+
+
+
+  render(){
+    return (
+
+    
+      <View>
+
+
+
+
+<StatusBar barStyle="dark-content" />
       <SafeAreaView>
+      <TouchableOpacity style={styles.subRaw}
+        onPress={() => {
+          NativeModules.BLuno.initEvent('tus parametors')
+        }}
+      > 
+            <Text>init</Text>
+          </TouchableOpacity>
         <View >
           <Text>.</Text>
           <View style={styles.subRaw}>
           <Text>Not ready</Text>
-          <TouchableOpacity> 
+          
+          <TouchableOpacity
+            onPress={() => {
+              NativeModules.BLuno.searchDeviceEvent('tus params search')
+            }}
+          > 
             <Text>Search</Text>
           </TouchableOpacity>
           </View>
 
+          <TouchableOpacity style={styles.subRaw}
+        onPress={() => {
+          NativeModules.BLuno.connectDeviceEvent('tus params search')
+
+          
+        }}
+      > 
+            <Text>Connect</Text>
+          </TouchableOpacity>
 
           <TextInput
             style={{ height: 40, borderColor: 'gray', borderWidth: 1, backgroundColor: 'gray' }}
@@ -46,12 +115,12 @@ const App: () => React$Node = () => {
               // alert('ss9');
 
               //call something on ios
-              // NativeModules.RNHello.addEvent('cumple de fernando', 'mansion playa')
+              NativeModules.RNHello.addEvent('cumple de fernando', 'mansion playa')
 
               //initiate callback on ios
-              NativeModules.RNHello.findEvents(resp => {
-                alert(resp);
-              })
+              // NativeModules.RNHello.findEvents(resp => {
+              //   alert(resp);
+              // })
 
             }}>
             <Text>   Send message </Text>
@@ -72,8 +141,15 @@ const App: () => React$Node = () => {
         </View>
       
       </SafeAreaView>
-    </>
-  );
+
+
+
+      </View>
+    
+  
+
+    )
+          }
 };
 
 const styles = StyleSheet.create({

@@ -6,8 +6,15 @@
 //
 
 #import <React/RCTBridgeModule.h>
+#import <React/RCTEventEmitter.h>
+#import "DFBlunoManager.h"
 
-@interface BLuno : NSObject <RCTBridgeModule>
+
+@interface BLuno : RCTEventEmitter <RCTBridgeModule, DFBlunoDelegate>
+@property(strong, nonatomic) DFBlunoManager* blunoManager;
+@property(strong, nonatomic) DFBlunoDevice* blunoDev;
+@property(strong, nonatomic) NSMutableArray* aryDevices;
+
 @end
 
  
