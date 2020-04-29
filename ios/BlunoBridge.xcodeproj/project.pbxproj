@@ -17,6 +17,7 @@
 		2D02E4BF1E0B4AB3006451C7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		2DCD954D1E0B4F2C00145EB5 /* BlunoBridgeTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* BlunoBridgeTests.m */; };
 		85471BA824593C9B008D1720 /* RNHello.m in Sources */ = {isa = PBXBuildFile; fileRef = 85471BA724593C9B008D1720 /* RNHello.m */; };
+		85471BAB24595151008D1720 /* BLuno.m in Sources */ = {isa = PBXBuildFile; fileRef = 85471BAA24595151008D1720 /* BLuno.m */; };
 		8645BE1CD222BDFF471C7BA3 /* libPods-BlunoBridge-BlunoBridgeTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 62A9145383B5343BAD4F6DCE /* libPods-BlunoBridge-BlunoBridgeTests.a */; };
 		88750574E746AEC8E980F0CC /* libPods-BlunoBridge.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 413F33C8629777EC6100651B /* libPods-BlunoBridge.a */; };
 		AEDDFC34A3C8618BC3BD2A39 /* libPods-BlunoBridge-tvOSTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BA09B8EE69EF17BB9E450486 /* libPods-BlunoBridge-tvOSTests.a */; };
@@ -63,6 +64,8 @@
 		83B15C249FAF08B6EF045D2A /* Pods-BlunoBridge-tvOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BlunoBridge-tvOSTests.debug.xcconfig"; path = "Target Support Files/Pods-BlunoBridge-tvOSTests/Pods-BlunoBridge-tvOSTests.debug.xcconfig"; sourceTree = "<group>"; };
 		85471BA624593C9B008D1720 /* RNHello.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RNHello.h; sourceTree = "<group>"; };
 		85471BA724593C9B008D1720 /* RNHello.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RNHello.m; sourceTree = "<group>"; };
+		85471BA924595151008D1720 /* BLuno.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BLuno.h; sourceTree = "<group>"; };
+		85471BAA24595151008D1720 /* BLuno.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BLuno.m; sourceTree = "<group>"; };
 		A57339A4CBDECFC1A9E8C635 /* Pods-BlunoBridge.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BlunoBridge.release.xcconfig"; path = "Target Support Files/Pods-BlunoBridge/Pods-BlunoBridge.release.xcconfig"; sourceTree = "<group>"; };
 		BA09B8EE69EF17BB9E450486 /* libPods-BlunoBridge-tvOSTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-BlunoBridge-tvOSTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		CC89963D0FB5C1EAA0A23D75 /* Pods-BlunoBridge.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BlunoBridge.debug.xcconfig"; path = "Target Support Files/Pods-BlunoBridge/Pods-BlunoBridge.debug.xcconfig"; sourceTree = "<group>"; };
@@ -137,6 +140,8 @@
 				13B07FB71A68108700A75B9A /* main.m */,
 				85471BA624593C9B008D1720 /* RNHello.h */,
 				85471BA724593C9B008D1720 /* RNHello.m */,
+				85471BA924595151008D1720 /* BLuno.h */,
+				85471BAA24595151008D1720 /* BLuno.m */,
 			);
 			name = BlunoBridge;
 			sourceTree = "<group>";
@@ -537,6 +542,7 @@
 			files = (
 				13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */,
 				13B07FC11A68108700A75B9A /* main.m in Sources */,
+				85471BAB24595151008D1720 /* BLuno.m in Sources */,
 				85471BA824593C9B008D1720 /* RNHello.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
