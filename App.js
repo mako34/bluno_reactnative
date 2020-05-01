@@ -119,8 +119,11 @@ class App extends React.Component {
           />
           <TouchableOpacity style={{padding:30}}
             onPress={() => {
-              NativeModules.BLuno.SetFreqEvent('tus params search')
+              // NativeModules.BLuno.SetFreqEvent('tus params search')
 
+              NativeModules.BLuno.getDeviceName((err ,name) => {
+                console.log(err, name);
+             });
 
             }}>
             <Text>   Send message </Text>
