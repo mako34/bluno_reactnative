@@ -1,8 +1,8 @@
 package com.blunobridge;
 
+import android.app.AlertDialog;
 import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothGattCharacteristic;
@@ -343,9 +343,14 @@ public abstract  class BlunoLibrary extends Activity {
     	Log.d("mk","garreo");
     	switch (mConnectionState) {
 		case isNull:
+			Log.d("mk","isNull");
+
 			mConnectionState= connectionStateEnum.isScanning;
 			onConectionStateChange(mConnectionState);
 			scanLeDevice(true);
+
+			Log.d("mk", "mScan:"+mScanDeviceDialog);
+
 			mScanDeviceDialog.show();
 			break;
 		case isToScan:
@@ -355,11 +360,11 @@ public abstract  class BlunoLibrary extends Activity {
 			mScanDeviceDialog.show();
 			break;
 		case isScanning:
-			
+
 			break;
 
 		case isConnecting:
-			
+
 			break;
 		case isConnected:
 			mBluetoothLeService.disconnect();
@@ -370,7 +375,7 @@ public abstract  class BlunoLibrary extends Activity {
 			onConectionStateChange(mConnectionState);
 			break;
 		case isDisconnecting:
-			
+
 			break;
 
 		default:

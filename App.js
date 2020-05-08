@@ -86,7 +86,7 @@ class App extends React.Component {
       <SafeAreaView>
       <TouchableOpacity style={styles.subRaw}
         onPress={() => {
-          NativeModules.BLuno.initEvent('tus parametors')
+          NativeModules.BLuno.launchDroidBT()
         }}
       > 
             <Text>init</Text>

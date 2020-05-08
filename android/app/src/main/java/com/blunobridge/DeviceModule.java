@@ -1,6 +1,8 @@
 package com.blunobridge;
 
+import android.app.Activity;
 import android.content.Intent;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.facebook.react.bridge.Callback;
@@ -76,5 +78,14 @@ public class DeviceModule extends ReactContextBaseJavaModule {
 //        }
 //    }
 
+    @ReactMethod
+    void launchDroidBT(){
+        Activity activity = getCurrentActivity();
+        if (activity != null) {
+            Intent intent = new Intent(activity, BlunoActivity.class);
+            activity.startActivity(intent);
+        }
+        Log.d("mk", "okas");
+    }
 
 }
